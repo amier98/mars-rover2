@@ -23,6 +23,40 @@ export function roverPosition(
 }
 
 export function moveRight(direction: orientation) {
+  switch (direction) {
+    case "N":
+      direction = "E";
+      break;
+    case "E":
+      direction = "S";
+      break;
+    case "S":
+      direction = "W";
+      break;
+    case "W":
+      direction = "N";
+      break;
+  }
+
+  return direction;
+}
+
+export function moveLeft(direction: orientation) {
+  switch (direction) {
+    case "N":
+      direction = "W";
+      break;
+    case "W":
+      direction = "S";
+      break;
+    case "S":
+      direction = "E";
+      break;
+    case "E":
+      direction = "N";
+      break;
+  }
+
   return direction;
 }
 

@@ -1,4 +1,10 @@
-import { Rover, isDirection, roverPosition, moveRight } from "./rover";
+import {
+  Rover,
+  isDirection,
+  roverPosition,
+  moveRight,
+  moveLeft,
+} from "./rover";
 import { Grid, createPlateu } from "./plateu";
 
 describe("check if rover is in grid", () => {
@@ -24,9 +30,43 @@ describe("test isdirection function", () => {
 });
 
 describe("test moveRight function", () => {
-  it("return E if rover is at command R", () => {
+  it("return correct orientation of N rover when command is R", () => {
     //arrange
     const direction = moveRight("N");
-    expect(direction).toEqual("E");
+    expect(direction).toBe("E");
+  });
+  it("return correct orientation of E rover when command is R", () => {
+    //arrange
+    const direction = moveRight("E");
+    expect(direction).toBe("S");
+  });
+  it("return correct orientation of S rover when command is R", () => {
+    //arrange
+    const direction = moveRight("S");
+    expect(direction).toBe("W");
+  });
+  it("return correct orientation of W rover when command is R", () => {
+    //arrange
+    const direction = moveRight("W");
+    expect(direction).toBe("N");
+  });
+});
+
+describe("test moveLeft function", () => {
+  it("return left turn of N", () => {
+    const direction = moveLeft("N");
+    expect(direction).toBe("W");
+  });
+  it("return left turn of W", () => {
+    const direction = moveLeft("W");
+    expect(direction).toBe("S");
+  });
+  it("return left turn of S", () => {
+    const direction = moveLeft("S");
+    expect(direction).toBe("E");
+  });
+  it("return left turn of E", () => {
+    const direction = moveLeft("E");
+    expect(direction).toBe("N");
   });
 });
