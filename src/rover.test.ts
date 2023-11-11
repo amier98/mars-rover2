@@ -4,6 +4,7 @@ import {
   roverPosition,
   moveRight,
   moveLeft,
+  processIntruction,
 } from "./rover";
 import { Grid, createPlateu } from "./plateu";
 
@@ -68,5 +69,16 @@ describe("test moveLeft function", () => {
   it("return left turn of E", () => {
     const direction = moveLeft("E");
     expect(direction).toBe("N");
+  });
+});
+
+describe("test processIntruction fucntion", () => {
+  it("if command selects L, rover should turn left", () => {
+    const input = processIntruction("L");
+    expect(input).toBe("W");
+  });
+  it("if command selects R, rover should turn right", () => {
+    const input = processIntruction("R");
+    expect(input).toBe("E");
   });
 });

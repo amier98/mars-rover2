@@ -22,6 +22,24 @@ export function roverPosition(
   }
 }
 
+export function processIntruction(instruction: roverInstruction) {
+  const currentdirection = "N";
+
+  switch (instruction) {
+    case "L":
+      moveLeft(currentdirection);
+      console.log(moveLeft(currentdirection));
+      break;
+    case "R":
+      moveRight(currentdirection);
+      console.log(moveRight(currentdirection));
+      break;
+    case "M":
+      //move
+      break;
+  }
+}
+
 export function moveRight(direction: orientation) {
   switch (direction) {
     case "N":
