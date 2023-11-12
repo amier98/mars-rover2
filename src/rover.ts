@@ -1,7 +1,7 @@
-import { Grid } from "./plateu";
+import { Grid, createPlateu } from "./plateu";
 
 type roverInstruction = "L" | "R" | "M";
-type orientation = "N" | "E" | "S" | "W";
+type orientation = "N" | "E" | "W" | "S";
 
 export type Rover = {
   x: number;
@@ -22,17 +22,18 @@ export function roverPosition(
   }
 }
 
-export function processIntruction(instruction: roverInstruction) {
-  const currentdirection = "N";
+export function processIntruction(rover: Rover, instruction: roverInstruction) {
+  // const tes = createPlateu(5, 5);
+  // console.log(roverPosition(tes, 0, 0, "N"));
 
   switch (instruction) {
     case "L":
-      moveLeft(currentdirection);
-      console.log(moveLeft(currentdirection));
+      // moveLeft(currentDirection);
+      // console.log(moveLeft(currentDirection));
       break;
     case "R":
-      moveRight(currentdirection);
-      console.log(moveRight(currentdirection));
+      moveRight(rover);
+      console.log(rover);
       break;
     case "M":
       //move
@@ -40,42 +41,71 @@ export function processIntruction(instruction: roverInstruction) {
   }
 }
 
-export function moveRight(direction: orientation) {
+export function moveRight(rover: Rover) {
+  const { direction } = rover;
   switch (direction) {
     case "N":
-      direction = "E";
+      rover.direction = "E";
       break;
     case "E":
-      direction = "S";
+      rover.direction = "S";
       break;
     case "S":
-      direction = "W";
+      rover.direction = "W";
       break;
     case "W":
-      direction = "N";
+      rover.direction = "N";
+      break;
+  }
+
+  return rover;
+}
+
+export function moveLeft(direction: Rover) {
+  switch (direction.direction) {
+    case "N":
+      direction.direction = "W";
+      break;
+    case "W":
+      direction.direction = "S";
+      break;
+    case "S":
+      direction.direction = "E";
+      break;
+    case "E":
+      direction.direction = "N";
       break;
   }
 
   return direction;
 }
 
-export function moveLeft(direction: orientation) {
-  switch (direction) {
-    case "N":
-      direction = "W";
-      break;
-    case "W":
-      direction = "S";
-      break;
-    case "S":
-      direction = "E";
-      break;
-    case "E":
-      direction = "N";
-      break;
-  }
+export function move(
+  x: number,
+  y: number,
+  direction: orientation,
+  instruction: roverInstruction
+) {
+  //need the processIntruction here
+  // if direction is equal to west or east, add 1 to x
+  // const currentDirection = "N";
+  // if (moveRight(currentDirection)) {
+  // }
+  // if (moveRight("N")) {
+  //   x += 1;
+  //   direction = "E";
+  // } else if (moveRight("E")) {
+  //   y += 1;
+  //   direction = "S";
+  // } else if (moveRight("S")) {
+  //   x += 1;
+  //   direction = "W";
+  // } else if (moveRight("W")) {
+  //   y += 1;
+  //   direction = "N";
+  // }
 
-  return direction;
+  return { x: x, y: y, direction: direction };
 }
 
 export function isDirection(input: string): input is roverInstruction {
