@@ -28,15 +28,14 @@ export function processIntruction(rover: Rover, instruction: roverInstruction) {
 
   switch (instruction) {
     case "L":
-      // moveLeft(currentDirection);
-      // console.log(moveLeft(currentDirection));
+      moveLeft(rover);
       break;
     case "R":
       moveRight(rover);
-      console.log(rover);
       break;
     case "M":
       //move
+      move(rover);
       break;
   }
 }
@@ -61,51 +60,51 @@ export function moveRight(rover: Rover) {
   return rover;
 }
 
-export function moveLeft(direction: Rover) {
-  switch (direction.direction) {
+export function moveLeft(rover: Rover) {
+  const { direction } = rover;
+  switch (direction) {
     case "N":
-      direction.direction = "W";
+      rover.direction = "W";
       break;
     case "W":
-      direction.direction = "S";
+      rover.direction = "S";
       break;
     case "S":
-      direction.direction = "E";
+      rover.direction = "E";
       break;
     case "E":
-      direction.direction = "N";
+      rover.direction = "N";
       break;
   }
 
-  return direction;
+  return rover;
 }
 
-export function move(
-  x: number,
-  y: number,
-  direction: orientation,
-  instruction: roverInstruction
-) {
+export function move(place: Rover) {
+  const { x, y } = place;
+
+  console.log(place.direction);
   //need the processIntruction here
   // if direction is equal to west or east, add 1 to x
   // const currentDirection = "N";
   // if (moveRight(currentDirection)) {
   // }
-  // if (moveRight("N")) {
-  //   x += 1;
-  //   direction = "E";
-  // } else if (moveRight("E")) {
-  //   y += 1;
-  //   direction = "S";
-  // } else if (moveRight("S")) {
-  //   x += 1;
-  //   direction = "W";
-  // } else if (moveRight("W")) {
-  //   y += 1;
-  //   direction = "N";
-  // }
+  switch (place.direction) {
+    case "N":
+      place.y++;
+      break;
+    case "E":
+      place.x++;
+      break;
+    case "W":
+      place.x++;
+      console.log(place.x);
+      break;
+    case "S":
+      place.y++;
+  }
 
-  return { x: x, y: y, direction: direction };
+  return { place };
 }
 
 export function isDirection(input: string): input is roverInstruction {

@@ -37,11 +37,11 @@ describe("test moveRight function", () => {
     const plateu = createPlateu(5, 5);
     const rover = roverPosition(plateu, 0, 0, "N");
     moveRight(rover);
-    console.log(rover.direction);
+    //console.log(rover.direction);
     expect(rover.direction).toEqual("E");
 
     moveRight(rover);
-    console.log(rover.direction);
+    //console.log(rover.direction);
     expect(rover.direction).toBe("S");
 
     moveRight(rover);
@@ -54,11 +54,11 @@ describe("test moveLeft function", () => {
   const rover = roverPosition(plateu, 0, 0, "N");
   it("return left turn of N", () => {
     moveLeft(rover);
-    console.log(rover.direction);
+    //console.log(rover.direction);
     expect(rover.direction).toBe("W");
 
     moveLeft(rover);
-    console.log(rover.direction);
+    //console.log(rover.direction);
     expect(rover.direction).toBe("S");
   });
 });
@@ -87,15 +87,12 @@ describe("test moveRover function", () => {
   //get the rover coordinate and grid
   //use the processIntruction function to move left and right
   const plateu = createPlateu(5, 5);
-  //const rover = roverPosition(plateu, 0, 0, "N");
-  const moveRover = move(0, 0, "N", "R");
-  // it("move rover to right one place", () => {
-  //   expect(moveRover.x).toEqual(1);
-  //   expect(moveRover.y).toEqual(0);
-  //   expect(moveRover.direction).toEqual("E");
-
-  //   expect(moveRover.x).toEqual(1);
-  //   expect(moveRover.y).toEqual(0);
-  //   expect(moveRover.direction).toEqual("S");
-  // });
+  const rover = roverPosition(plateu, 0, 0, "E");
+  const moveRover = move(rover);
+  it("move rover to right one place", () => {
+    expect(moveRover.place.x).toEqual(1);
+    console.log(moveRover.place.x);
+    expect(moveRover.place.y).toEqual(0);
+    // expect(moveRover.direction).toEqual("E");
+  });
 });
