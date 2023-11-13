@@ -22,21 +22,27 @@ export function roverPosition(
   }
 }
 
-export function processIntruction(rover: Rover, instruction: roverInstruction) {
-  // const tes = createPlateu(5, 5);
-  // console.log(roverPosition(tes, 0, 0, "N"));
-
-  switch (instruction) {
-    case "L":
-      moveLeft(rover);
-      break;
-    case "R":
-      moveRight(rover);
-      break;
-    case "M":
-      //move
-      move(rover);
-      break;
+export function processIntruction(
+  rover: Rover,
+  instruction: roverInstruction[],
+  plateu: Grid
+) {
+  // need to make instruction string array so it takes multiple inputes
+  for (const instruct of instruction) {
+    // const test = instruct.join("");
+    console.log(instruct);
+    switch (instruct) {
+      case "L":
+        moveLeft(rover);
+        break;
+      case "R":
+        moveRight(rover);
+        break;
+      case "M":
+        //move
+        move(rover, plateu);
+        break;
+    }
   }
 }
 
@@ -56,7 +62,6 @@ export function moveRight(rover: Rover) {
       rover.direction = "N";
       break;
   }
-
   return rover;
 }
 
@@ -76,35 +81,47 @@ export function moveLeft(rover: Rover) {
       rover.direction = "N";
       break;
   }
-
   return rover;
 }
 
-export function move(place: Rover) {
+export function move(place: Rover, plateu: Grid) {
   const { x, y } = place;
-
-  console.log(place.direction);
+  // console.log(place.direction);
   //need the processIntruction here
   // if direction is equal to west or east, add 1 to x
-  // const currentDirection = "N";
-  // if (moveRight(currentDirection)) {
-  // }
   switch (place.direction) {
     case "N":
-      place.y++;
+      if (place.y + 1 <= plateu.height) {
+        place.y++;
+        // } else {
+        //   throw new Error("Out of bounds");
+      }
       break;
     case "E":
-      place.x++;
+      if (place.x + 1 <= plateu.width) {
+        place.x++;
+        // } else {
+        //   throw new Error("Out of bounds");
+      }
       break;
     case "W":
-      place.x++;
-      console.log(place.x);
+      if (place.x - 1 >= 0) {
+        place.x--;
+        // } else {
+        //   throw new Error("Out of bounds");
+      }
       break;
     case "S":
-      place.y++;
+      if (place.y - 1 >= 0) {
+        place.y--;
+        // } else {
+        //   throw new Error("Out of bounds");
+        // }
+      }
+      break;
   }
 
-  return { place };
+  return { x: x, y: y };
 }
 
 export function isDirection(input: string): input is roverInstruction {

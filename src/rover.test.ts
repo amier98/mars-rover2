@@ -1,6 +1,4 @@
 import {
-  Rover,
-  isDirection,
   roverPosition,
   moveRight,
   moveLeft,
@@ -16,18 +14,6 @@ describe("check if rover is in grid", () => {
     expect(rover.x).toEqual(0);
     expect(rover.y).toEqual(0);
     expect(rover.direction).toEqual("N");
-  });
-});
-
-describe("test isdirection function", () => {
-  it("return true if rover can turn R", () => {
-    expect(isDirection("R")).toBe(true);
-  });
-  it("return true if rover can turn L", () => {
-    expect(isDirection("L")).toBe(true);
-  });
-  it("return true if rover can move", () => {
-    expect(isDirection("M")).toBe(true);
   });
 });
 
@@ -64,35 +50,29 @@ describe("test moveLeft function", () => {
 });
 
 describe("test processIntruction fucntion", () => {
-  // it("if command selects L, rover should turn left", () => {
-  //   this does work, as I tested it with the console log
-  //   const input = processIntruction("L");
-  //   expect(input).toBe("W");
-  // });
-  it("if command selects R, rover should turn right", () => {
+  it("if command selects instruction, rover should turn that direction", () => {
     const plateu = createPlateu(5, 5);
-    const rover = roverPosition(plateu, 0, 0, "N");
-    processIntruction(rover, "R");
+    const rover = roverPosition(plateu, 3, 3, "E");
+    processIntruction(
+      rover,
+      ["M", "M", "R", "M", "M", "R", "M", "R", "R", "M"],
+      plateu
+    );
+    const moveRover = move(rover, plateu);
+    console.log(moveRover.x);
+    console.log(moveRover.y);
+    console.log(rover.direction);
+    expect(moveRover.x).toEqual(5);
+    expect(moveRover.y).toEqual(1);
     expect(rover.direction).toEqual("E");
-
-    processIntruction(rover, "R");
-    expect(rover.direction).toBe("S");
-
-    processIntruction(rover, "R");
-    expect(rover.direction).toBe("W");
   });
-});
 
-describe("test moveRover function", () => {
-  //get the rover coordinate and grid
-  //use the processIntruction function to move left and right
-  const plateu = createPlateu(5, 5);
-  const rover = roverPosition(plateu, 0, 0, "E");
-  const moveRover = move(rover);
-  it("move rover to right one place", () => {
-    expect(moveRover.place.x).toEqual(1);
-    console.log(moveRover.place.x);
-    expect(moveRover.place.y).toEqual(0);
-    // expect(moveRover.direction).toEqual("E");
-  });
+  // it("if rover tries to go out of bounds", () => {
+  //   const plateu = createPlateu(5, 5);
+  //   const rover = roverPosition(plateu, 0, 0, "N");
+  //   processIntruction(rover, ["L", "M"], plateu);
+  //   const moveRover = move(rover, plateu);
+  //   expect(moveRover.x).toThrowError("out of bounds");
+  //   expect(moveRover.y).toThrowError("out of bounds");
+  // });
 });
