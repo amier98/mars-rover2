@@ -5,29 +5,36 @@ import {
   processIntruction,
   move,
 } from "./rover";
-import { Grid, createPlateu } from "./plateu";
+import { createPlateu } from "./plateu";
 
-describe("check if rover is in grid", () => {
-  it("rover is in grid", () => {
+describe("rover", () => {
+  it("rover is in plateu", () => {
+    //Arrange
     const plateu = createPlateu(5, 5);
+    //Assert
     const rover = roverPosition(plateu, 0, 0, "N");
+    //Act
     expect(rover.x).toEqual(0);
     expect(rover.y).toEqual(0);
     expect(rover.direction).toEqual("N");
   });
+
+  it("rover has been given incorrect coordinates", () => {
+    const plateu = createPlateu(5, 5);
+    expect(() => roverPosition(plateu, -1, 4, "N")).toThrowError(Error);
+    expect(() => roverPosition(plateu, 0, 7, "E")).toThrowError(Error);
+  });
 });
 
-describe("test moveRight function", () => {
-  it("return correct orientation of N rover when command is R which is E", () => {
-    //arrange
+describe("moveRight", () => {
+  it("return correct orientation of rover when it is turning right", () => {
+    //Arrange
     const plateu = createPlateu(5, 5);
     const rover = roverPosition(plateu, 0, 0, "N");
     moveRight(rover);
-    //console.log(rover.direction);
     expect(rover.direction).toEqual("E");
 
     moveRight(rover);
-    //console.log(rover.direction);
     expect(rover.direction).toBe("S");
 
     moveRight(rover);
@@ -35,35 +42,32 @@ describe("test moveRight function", () => {
   });
 });
 
-describe("test moveLeft function", () => {
+describe("moveLeft", () => {
   const plateu = createPlateu(5, 5);
   const rover = roverPosition(plateu, 0, 0, "N");
   it("return left turn of N", () => {
     moveLeft(rover);
-    //console.log(rover.direction);
     expect(rover.direction).toBe("W");
 
     moveLeft(rover);
-    //console.log(rover.direction);
     expect(rover.direction).toBe("S");
   });
 });
 
-describe("test processIntruction fucntion", () => {
-  it("if command selects instruction, rover should turn that direction", () => {
+describe("processInstruction", () => {
+  it("return correct x and y coordinates and direction after instruction", () => {
     const plateu = createPlateu(5, 5);
     const rover = roverPosition(plateu, 3, 3, "E");
+    console.log(rover.x, rover.y, rover.direction);
     processIntruction(
       rover,
       ["M", "M", "R", "M", "M", "R", "M", "R", "R", "M"],
       plateu
     );
     const moveRover = move(rover, plateu);
-    console.log(moveRover.x);
-    console.log(moveRover.y);
-    console.log(rover.direction);
     expect(moveRover.x).toEqual(5);
     expect(moveRover.y).toEqual(1);
+    console.log(moveRover.x, moveRover.y, rover.direction);
     expect(rover.direction).toEqual("E");
   });
 
@@ -71,8 +75,8 @@ describe("test processIntruction fucntion", () => {
   //   const plateu = createPlateu(5, 5);
   //   const rover = roverPosition(plateu, 0, 0, "N");
   //   processIntruction(rover, ["L", "M"], plateu);
-  //   const moveRover = move(rover, plateu);
-  //   expect(moveRover.x).toThrowError("out of bounds");
-  //   expect(moveRover.y).toThrowError("out of bounds");
+  //   //moveRover = move(rover, plateu);
+  //   console.log(rover.direction);
+  //   expect(() => move(rover, plateu)).toThrowError("Out");
   // });
 });
