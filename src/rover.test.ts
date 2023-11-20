@@ -57,26 +57,35 @@ describe("moveLeft", () => {
 describe("processInstruction", () => {
   it("return correct x and y coordinates and direction after instruction", () => {
     const plateu = createPlateu(5, 5);
-    const rover = roverPosition(plateu, 3, 3, "E");
+    const rover = roverPosition(plateu, 0, 0, "N");
     console.log(rover.x, rover.y, rover.direction);
-    processIntruction(
-      rover,
-      ["M", "M", "R", "M", "M", "R", "M", "R", "R", "M"],
-      plateu
-    );
+    processIntruction(rover, ["R", "M"], plateu);
     const moveRover = move(rover, plateu);
-    expect(moveRover.x).toEqual(5);
-    expect(moveRover.y).toEqual(1);
+    expect(moveRover.x).toEqual(1);
+    expect(moveRover.y).toEqual(0);
     console.log(moveRover.x, moveRover.y, rover.direction);
     expect(rover.direction).toEqual("E");
   });
 
-  // it("if rover tries to go out of bounds", () => {
-  //   const plateu = createPlateu(5, 5);
-  //   const rover = roverPosition(plateu, 0, 0, "N");
-  //   processIntruction(rover, ["L", "M"], plateu);
-  //   //moveRover = move(rover, plateu);
-  //   console.log(rover.direction);
-  //   expect(() => move(rover, plateu)).toThrowError("Out");
-  // });
+  it("input is invalid", () => {});
+
+  it("if rover tries to go out of bounds towards west direction ", () => {
+    const plateu = createPlateu(5, 5);
+    const rover = roverPosition(plateu, 1, 0, "N");
+    const moveRover = move(rover, plateu);
+    console.log(rover.x);
+    expect(() => {
+      processIntruction(rover, ["L", "M", "M"], plateu);
+    }).toThrowError(Error);
+  });
+
+  it("if rover tries to go out of bounds towards east direction ", () => {
+    const plateu = createPlateu(5, 5);
+    const rover = roverPosition(plateu, 5, 0, "N");
+    const moveRover = move(rover, plateu);
+    console.log(rover.x);
+    expect(() => {
+      processIntruction(rover, ["R", "M", "M"], plateu);
+    }).toThrowError(Error);
+  });
 });
