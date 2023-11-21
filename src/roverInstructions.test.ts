@@ -54,6 +54,7 @@ describe("processInstruction", () => {
   it("should move rover to the left side multiple times", () => {
     const plateau = createPlateu(5, 5);
     const rover = roverPosition(plateau, 3, 2, "N");
+    //start position
     console.log(rover.x, rover.y, rover.direction);
     processInstruction(rover, ["L", "M", "M"], plateau);
     const moveRover = move(rover, plateau);
@@ -67,6 +68,7 @@ describe("processInstruction", () => {
   it("should move rover forward multiple times", () => {
     const plateau = createPlateu(5, 5);
     const rover = roverPosition(plateau, 3, 2, "N");
+    //start position
     console.log(rover.x, rover.y, rover.direction);
     processInstruction(rover, ["M", "M"], plateau);
     const moveRover = move(rover, plateau);
