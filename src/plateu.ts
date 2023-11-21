@@ -1,3 +1,5 @@
+
+
 export type Grid = { height: number; width: number };
 
 export function createPlateu(height: number, width: number): Grid {
