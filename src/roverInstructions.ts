@@ -94,7 +94,6 @@ export function move(place: Rover, plateu: Grid) {
     case "S":
       if (place.y - 1 >= 0) {
         place.y--;
-        console.log(place.y);
       } else {
         throw new Error("Out of bounds");
       }

@@ -79,6 +79,39 @@ describe("processInstruction", () => {
     console.log(moveRover.x, moveRover.y, rover.direction);
   });
 
+  it("should move rover backward multiple times", () => {
+    const plateau = createPlateu(5, 5);
+    const rover = roverPosition(plateau, 3, 3, "S");
+    //start position
+    console.log(rover.x, rover.y, rover.direction);
+    processInstruction(rover, ["M", "M"], plateau);
+    const moveRover = move(rover, plateau);
+    expect(moveRover.x).toEqual(3);
+    expect(moveRover.y).toEqual(1);
+    expect(rover.direction).toEqual("S");
+    //end position
+    console.log(moveRover.x, moveRover.y, rover.direction);
+  });
+
+  it("should move rover around the plateu", () => {
+    const plateau = createPlateu(5, 5);
+    const rover = roverPosition(plateau, 3, 3, "E");
+    //start position
+    console.log(rover.x, rover.y, rover.direction);
+    processInstruction(
+      rover,
+      ["M", "M", "R", "M", "M", "R", "M", "R", "R"],
+      plateau
+    );
+    const moveRover = move(rover, plateau);
+    console.log(moveRover.x, moveRover.y, rover.direction);
+    expect(moveRover.x).toEqual(4);
+    expect(moveRover.y).toEqual(1);
+    expect(rover.direction).toEqual("E");
+    //end position
+    console.log(moveRover.x, moveRover.y, rover.direction);
+  });
+
   it("if rover tries to go out of bounds towards west direction ", () => {
     const plateau = createPlateu(5, 5);
     const rover = roverPosition(plateau, 0, 0, "N");
@@ -117,5 +150,32 @@ describe("processInstruction", () => {
     expect(() => {
       processInstruction(rover, ["L", "M"], plateau);
     }).toThrowError(Error);
+  });
+
+  it("if rover tries to go out of bounds in 2x3 grid towards North direction ", () => {
+    const plateau = createPlateu(2, 3);
+    const rover = roverPosition(plateau, 0, 0, "N");
+    expect(() => {
+      processInstruction(rover, ["M", "M", "M", "M"], plateau);
+    }).toThrowError(Error);
+    console.log(rover);
+  });
+
+  it("if rover tries to go out of bounds in 2x3 grid towards South direction ", () => {
+    const plateau = createPlateu(2, 3);
+    const rover = roverPosition(plateau, 0, 2, "S");
+    expect(() => {
+      processInstruction(rover, ["M", "M", "M"], plateau);
+    }).toThrowError(Error);
+    console.log(rover);
+  });
+
+  it("if rover tries to go out of bounds in 2x3 grid towards East direction ", () => {
+    const plateau = createPlateu(2, 3);
+    const rover = roverPosition(plateau, 0, 2, "N");
+    expect(() => {
+      processInstruction(rover, ["R", "M", "M", "M"], plateau);
+    }).toThrowError(Error);
+    console.log(rover);
   });
 });
